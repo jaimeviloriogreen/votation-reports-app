@@ -1,0 +1,2 @@
+DROP DATABASE IF EXISTS votaciones_puesto_municipal;
+CREATE DATABASE votaciones_puesto_municipal;
