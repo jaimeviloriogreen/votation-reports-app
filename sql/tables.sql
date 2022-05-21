@@ -4,6 +4,7 @@ CREATE TABLE votantes(
     nombre VARCHAR(50) NOT NULL,
     apellido VARCHAR(50) NOT NULL,
     sexo VARCHAR(10) NOT NULL
+    cedula VARCHAR(11) NOT NULL
 );
 DROP TABLE IF EXISTS public.candidatos;
 CREATE TABLE candidatos(
@@ -18,5 +19,11 @@ CREATE TABLE voto(
     votante INT REFERENCES votantes(id),
     fecha DATE DEFAULT CURRENT_DATE, 
     puesto VARCHAR(50)
+);
+
+DROP TABLE IF EXISTS public.candidaturas;
+CREATE TABLE candidaturas(
+    id SERIAL PRIMARY KEY,
+    posiciones VARCHAR(50) NOT NULL
 );
 

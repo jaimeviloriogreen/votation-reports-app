@@ -1,20 +1,16 @@
 import psycopg2
 
+print(__file__)
+
 class Connection:
-    __hostname = "localhost"
-    __database = "votaciones_puesto_municipal"
-    __username = "jaimeviloriogreen"
-    __password = "Provervios12:23"
-    __portID = 5432
-    
-    def __init__(self) -> None:
+    def __init__(self, dataConnection) -> None:
         try:
             self.connect = psycopg2.connect(
-                host = self.__hostname,
-                dbname = self.__database,
-                user = self.__username,
-                password = self.__password,
-                port = self.__portID
+                host = dataConnection['host'],
+                dbname = dataConnection['dbname'],
+                user = dataConnection['user'],
+                password = dataConnection['password'],
+                port = dataConnection['port']
             )
             
             self.cur = self.connect.cursor()
@@ -23,12 +19,17 @@ class Connection:
         
     
     def getCandidates(self):
-        self.cur.execute("SELECT id, nombre, apellido, aspiraciones FROM candidatos")
+        self.cur.execute("SELECT candidatos.id, nombre, apellido, posiciones AS aspiraciones FROM candidatos INNER JOIN candidaturas  ON candidaturas.id = candidatos.aspiraciones")
+        
         return self.cur.fetchall()
     
     def numberOfVoteCast(self):
         self.cur.execute("SELECT COUNT(*) FROM voto")
         return self.cur.fetchone()
+    
+    def votesByGender(self):
+        self.cur.execute("SELECT sexo, COUNT(sexo) FROM voto INNER JOIN votantes ON voto.votante = votantes.id GROUP BY(sexo)")
+        return self.cur.fetchall()
     
     def closeConnection(self):
         self.cur.close()

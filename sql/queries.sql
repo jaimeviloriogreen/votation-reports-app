@@ -8,16 +8,16 @@ FROM
     voto;
 
 -- INSERT INTO voto TABLE WHERE NOT EXISTS
-INSERT INTO voto
-    (candidato, votante, puesto)
-SELECT 1, 4, 'Alcalde'
+INSERT INTO votantes
+    (nombre, apellido, sexo, cedula)
+SELECT 'Jason','Soliman', 'Masculino', '02601238111'
 WHERE NOT EXISTS(
     SELECT 
-        votante
+        cedula
     FROM
-        voto
+        votantes
     WHERE
-        votante = 4
+        cedula = '02601238111'
 );
 
 -- SELECT FROM TABLE candidatos;
@@ -65,5 +65,28 @@ VALUES
 
     -- Total de voto por candidato
     SELECT COUNT(*) FROM voto WHERE candidato = 1;
+    
+    -- Total de votos por sexo
+    SELECT 
+        sexo, COUNT(sexo)
+    FROM 
+        voto
+    INNER JOIN
+        votantes
+    ON
+        voto.votante = votantes.id
+    GROUP BY(sexo);
+    
+    -- Traer candidatos con sus candidaturas
+    SELECT
+        candidatos.id, nombre, apellido, posiciones
+    FROM
+        candidatos
+    INNER JOIN 
+        candidaturas 
+    ON
+        candidaturas.id = candidatos.aspiraciones;
+   
+   
 
 
