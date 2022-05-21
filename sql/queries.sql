@@ -35,4 +35,35 @@ VALUES
     ('Pablo', 'Sarmiento', 'Masculino'),
     ('Raymundo', 'Muñoz', 'Masculino'),
     ('Minerva', 'Sosa', 'Femenino'),
-    ('Alberto', 'Rodríguez', 'Masculino');
+    ('Alberto', 'Rodríguez', 'Masculino'),
+     ('Sara', 'Mariñez', 'Femenino'),
+    ('Carlos', 'Almanzar', 'Masculino'),
+    ('Javier', 'De La cruz', 'Masculino'),
+    ('Marlom', 'De Léon', 'Masculino'),
+    ('Ryan', 'Colunna', 'Masculino'),
+    ('Dere', 'De La Rosa', 'Masculino'),
+    ('Melissa', 'Hughes', 'Femenino'),
+    ('Sheila', 'Espiritusanto', 'Femenino'),
+    ('Elizabeth', 'Carpio', 'Femenino'),
+    ('Carliana', 'Sierra', 'Femenino'),
+    ('Jairo', 'Cruz', 'Masculino'),
+    ('Xavier', 'Melendez', 'Masculino'),
+    ('Oscar', 'Quiñonez', 'Masculino'),
+    ('Raisa', 'Casanova', 'Femenino'),
+    ('Esteban', 'De Jesús', 'Masculino'),
+    ('Mario', 'Alfonseca', 'Casculino'),
+    ('Salvador', 'Carrasco', 'Masculino'),
+    ('Michael', 'Smith', 'Masculino'),
+    ('Máximo', 'Duarte', 'Masculino'),
+    ('Peterson', 'White', 'Masculino'),
+    ('Cristal', 'La Luz', 'Femenino'),
+    ('Esperanza', 'Mieses', 'Femenino');
+
+--!Queries para el Reporte
+    -- Total de votos emitidos
+    SELECT COUNT(*) FROM voto;
+
+    -- Total de voto por candidato
+    SELECT COUNT(*) FROM voto WHERE candidato = 1;
+
+
