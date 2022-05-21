@@ -1,4 +1,3 @@
-from ast import For
 from os import system
 from prettytable import PrettyTable
 from colorama import Fore
