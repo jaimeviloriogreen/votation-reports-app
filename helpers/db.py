@@ -31,6 +31,10 @@ class Connection:
         self.cur.execute("SELECT sexo, COUNT(sexo) FROM voto INNER JOIN votantes ON voto.votante = votantes.id GROUP BY(sexo)")
         return self.cur.fetchall()
     
+    def votesByCandidates(self):
+        self.cur.execute("SELECT nombre||' '||apellido, COUNT(votante) FROM voto INNER JOIN candidatos ON candidatos.id = voto.candidato GROUP BY(nombre||' '||apellido) ORDER BY(COUNT(votante)) DESC")
+        return self.cur.fetchall()
+    
     def closeConnection(self):
         self.cur.close()
         self.connect.close()

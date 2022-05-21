@@ -7,19 +7,6 @@ SELECT
 FROM 
     voto;
 
--- INSERT INTO voto TABLE WHERE NOT EXISTS
-INSERT INTO votantes
-    (nombre, apellido, sexo, cedula)
-SELECT 'Jason','Soliman', 'Masculino', '02601238111'
-WHERE NOT EXISTS(
-    SELECT 
-        cedula
-    FROM
-        votantes
-    WHERE
-        cedula = '02601238111'
-);
-
 -- SELECT FROM TABLE candidatos;
 SELECT id, nombre, apellido FROM candidatos;
 
@@ -86,7 +73,44 @@ VALUES
         candidaturas 
     ON
         candidaturas.id = candidatos.aspiraciones;
-   
-   
+-- Votos por candidatos
+SELECT 
+    nombre||' '||apellido, 
+    COUNT(votante)
+FROM
+    voto
+INNER JOIN
+    candidatos
+ON  
+    candidatos.id = voto.candidato
+GROUP BY(nombre||' '||apellido)
+ORDER BY(COUNT(votante)) DESC;
 
+-- INSERT INTO voto TABLE WHERE NOT EXISTS
+INSERT INTO voto
+    (candidato, votante)
+SELECT 4, 37
+WHERE NOT EXISTS(
+    SELECT 
+        votante
+    FROM
+        voto
+    WHERE
+        votante = 37
+);
+
+-- INSERT INTO votante TABLE WHERE NOT EXISTS
+INSERT INTO votantes
+    (nombre, apellido, sexo, cedula)
+SELECT 'Jason','Soliman', 'Masculino', '02601238111'
+WHERE NOT EXISTS(
+    SELECT 
+        cedula
+    FROM
+        votantes
+    WHERE
+        cedula = '02601238111'
+);
+
+    
 
