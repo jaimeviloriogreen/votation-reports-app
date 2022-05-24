@@ -1,7 +1,5 @@
 import psycopg2
 
-print(__file__)
-
 class Connection:
     def __init__(self, dataConnection) -> None:
         try:

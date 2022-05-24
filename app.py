@@ -30,7 +30,7 @@ while True:
          
         candidates = connected.getCandidates()
         candidates = [list(candidate) for candidate in candidates]
-
+    
         ptable.add_rows(candidates)
         print(ptable)
         print("")
@@ -93,10 +93,10 @@ while True:
         showMessages("Percent of votes by candidates:",  Fore.GREEN)
         
         totalVotes = connected.numberOfVoteCast()[0]
-        percents = connected.votesByCandidates()
+        voteCandidates = connected.votesByCandidates()
         
-        candidates = [percent[0] for percent in percents]
-        votes = ["{:.2f} %".format(( percent[1] / totalVotes ) * 100) for percent in percents]
+        candidates = [voteCandidate[0] for voteCandidate in voteCandidates]
+        votes = [f"{(( voteCandidate[1] / totalVotes ) * 100):.2f} %" for voteCandidate in voteCandidates]
      
         ptable.add_column( Fore.CYAN + "Candidates" + Fore.RESET, candidates)
         ptable.add_column( Fore.CYAN + "Percent of votes" + Fore.RESET, votes )
