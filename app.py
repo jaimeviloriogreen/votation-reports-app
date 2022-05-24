@@ -109,7 +109,6 @@ while True:
         ptable.clear()
     elif opt == "6":
         showMessages("Session closed!", Fore.CYAN)
-        
         connected.closeConnection()
         break
     

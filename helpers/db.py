@@ -15,9 +15,17 @@ class Connection:
         except Exception as error:
             print(f"Error: {error}")
         
-    
     def getCandidates(self):
-        self.cur.execute("SELECT candidatos.id, nombre, apellido, posiciones AS aspiraciones FROM candidatos INNER JOIN candidaturas  ON candidaturas.id = candidatos.aspiraciones")
+        self.cur.execute(
+        """
+            SELECT 
+                candidatos.id, nombre, apellido, posiciones AS aspiraciones 
+            FROM candidatos 
+                INNER JOIN candidaturas 
+            ON 
+                candidaturas.id = candidatos.aspiraciones;
+        """
+        )
         
         return self.cur.fetchall()
     
@@ -26,11 +34,33 @@ class Connection:
         return self.cur.fetchone()
     
     def votesByGender(self):
-        self.cur.execute("SELECT sexo, COUNT(sexo) FROM voto INNER JOIN votantes ON voto.votante = votantes.id GROUP BY(sexo)")
+        self.cur.execute(
+        """
+            SELECT 
+                sexo, COUNT(sexo) 
+            FROM 
+                voto 
+            INNER JOIN votantes 
+            ON 
+                voto.votante = votantes.id GROUP BY(sexo);
+        """
+        )
         return self.cur.fetchall()
     
     def votesByCandidates(self):
-        self.cur.execute("SELECT nombre||' '||apellido, COUNT(votante) FROM voto INNER JOIN candidatos ON candidatos.id = voto.candidato GROUP BY(nombre||' '||apellido) ORDER BY(COUNT(votante)) DESC")
+        self.cur.execute(
+        """
+            SELECT 
+                nombre||' '||apellido, 
+                COUNT(votante) 
+            FROM 
+                voto 
+            INNER JOIN candidatos 
+            ON 
+                candidatos.id = voto.candidato 
+            GROUP BY(nombre||' '||apellido) ORDER BY(COUNT(votante)) DESC;
+        """
+        )
         return self.cur.fetchall()
     
     def closeConnection(self):
