@@ -93,20 +93,23 @@ while True:
         showMessages("Percent of votes by candidates:",  Fore.GREEN)
         
         totalVotes = connected.numberOfVoteCast()[0]
-        voteCandidates = connected.votesByCandidates()
+        percentVotes = connected.votesByCandidates()
         
-        candidates = [voteCandidate[0] for voteCandidate in voteCandidates]
-        votes = [f"{(( voteCandidate[1] / totalVotes ) * 100):.2f} %" for voteCandidate in voteCandidates]
-     
-        ptable.add_column( Fore.CYAN + "Candidates" + Fore.RESET, candidates)
-        ptable.add_column( Fore.CYAN + "Percent of votes" + Fore.RESET, votes )
-        
+        ptable.field_names = [
+            Fore.CYAN + "Candidates" + Fore.RESET, 
+            Fore.CYAN + "Percent of votes" + Fore.RESET
+        ]
+            
+        percentVotes = [(x, f"{(( y / totalVotes ) * 100):.2f} %") for x,y in percentVotes]
+    
+        ptable.add_rows(percentVotes)
         print(ptable)
         print("")
         
         ptable.clear()
     elif opt == "6":
         showMessages("Session closed!", Fore.CYAN)
+        
         connected.closeConnection()
         break
     
