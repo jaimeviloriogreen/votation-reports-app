@@ -5,9 +5,8 @@ from colorama import Fore
 from settings.set import dataConnection
 from helpers.messages import showMessages
 from helpers.inquirer import questionMenu
-from helpers.db import Connection
+from helpers.data import Data
 
-connected = Connection(dataConnection)
 ptable = PrettyTable()
 
 showMessages("Wellcome to votation report @app", Fore.GREEN)
@@ -18,6 +17,7 @@ while True:
     
     if opt == "1":
         system("clear")
+        data = Data(dataConnection)
         
         showMessages("List of candidates:",  Fore.GREEN)
         
@@ -28,7 +28,7 @@ while True:
             Fore.CYAN + "Aspirations" + Fore.RESET, 
         ]   
          
-        candidates = connected.getCandidates()
+        candidates = data.getCandidates()
         candidates = [list(candidate) for candidate in candidates]
     
         ptable.add_rows(candidates)
@@ -38,14 +38,14 @@ while True:
         ptable.clear()
         
     elif opt == "2":
-         
+        data = Data(dataConnection)
         showMessages("Votes cast:",  Fore.GREEN)
         
         ptable.field_names = [
             Fore.CYAN + "Number of votes cast" + Fore.RESET
         ]
          
-        votes = connected.numberOfVoteCast()
+        votes = data.numberOfVoteCast()
         votes = [list(votes) for vote in votes]
         
         ptable.add_rows(votes)
@@ -54,10 +54,10 @@ while True:
         
         ptable.clear()
     elif opt == "3":
- 
+        data = Data(dataConnection)
         showMessages("Vote by gender:",  Fore.GREEN)
         
-        genders = connected.votesByGender()
+        genders = data.votesByGender()
         genders = [list(gender) for gender in genders]
         
         ptable.field_names = [
@@ -71,10 +71,10 @@ while True:
         
         ptable.clear()
     elif opt == "4":
-    
+        data = Data(dataConnection)
         showMessages("Vote by candidates:", Fore.GREEN)
         
-        voteByCandidates = connected.votesByCandidates()
+        voteByCandidates = data.votesByCandidates()
         voteByCandidates = [list(candidate) for candidate in voteByCandidates]
         
         ptable.field_names = [
@@ -89,11 +89,13 @@ while True:
         ptable.clear()
             
     elif opt == "5":
-        
         showMessages("Percent of votes by candidates:",  Fore.GREEN)
         
-        totalVotes = connected.numberOfVoteCast()[0]
-        percentVotes = connected.votesByCandidates()
+        data = Data(dataConnection)
+        totalVotes = data.numberOfVoteCast()[0]
+        
+        data = Data(dataConnection)
+        percentVotes = data.votesByCandidates()
         
         ptable.field_names = [
             Fore.CYAN + "Candidates" + Fore.RESET, 
@@ -109,7 +111,6 @@ while True:
         ptable.clear()
     elif opt == "6":
         showMessages("Session closed!", Fore.CYAN)
-        connected.closeConnection()
         break
     
 
